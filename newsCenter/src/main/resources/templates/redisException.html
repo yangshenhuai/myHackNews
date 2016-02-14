@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+	<h1>Redis Failure</h1>
+	<p>An internal data storage error has occurred accessing:</p>
+	<p>
+		<code th:text="${#httpServletRequest.requestURL}">Request URL</code>
+	</p>
+	<p>
+		<code th:text="${ex}">Exception</code>
+		<blockquote>
+			<i>Exception occurred , look <a href="https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc">here</a> for more exception handling</i>
+		</blockquote>
+	</p>
+
+	<div></div>
+
+</body>
+</html>
