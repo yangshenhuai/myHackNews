@@ -2,7 +2,7 @@
 import redis
 import time
 
-r = redis.Redis(host='50.30.35.9',port=3464,db=0,password='88abaff76c89e48f4a5a87e953fbd9b9')
+r = redis.Redis(host='50.30.35.9',port=3464,db=0,password='')
 
 result_table_name='result_table' 
 
