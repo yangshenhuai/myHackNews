@@ -30,7 +30,7 @@ def get_access_token():
 			print('start to request access_token')
 			response = requests.get(access_token_url)
 			print('access_token response : ' , response)
-			res_json = json.load(response.text)
+			res_json = json.loads(response.text)
 			access_token = res_json['access_token']
 			access_token_expire_time = int(time.time()) + res_json['expires_in']
 		return access_token
@@ -40,8 +40,8 @@ def get_access_token():
 def create_menu(access_token):
 	button_json='{"button":[{"type":"view","name":"给我点新鲜信息","url":"http://www.yangsh.info/weixin/news"}]}'
 	create_menu_url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='+access_token
-	resp = requests.post(create_menu_url,data=button_json)
-	resp_json = json.load(resp.text)
+	resp = requests.post(create_menu_url,data=button_json,verify=False)
+	resp_json = json.loads(resp.text)
 	if resp_json['errcode'] == '0':
 		print('create menu successfully')
 	else:
