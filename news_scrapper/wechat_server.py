@@ -34,23 +34,21 @@ def get_access_token():
 		print('Error , fail to get access_token.')
 
 def create_menu(access_token):
-	button_json='{"button":[{"type":"view","name":"给我些新鲜咨询","url":"http://www.yangsh.info/weixin/news"}]}'
- 	create_menu_url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + access_token
- 	resp = requests.post(create_menu_url,data=button_json)
- 	resp_json = json.load(resp.text);
- 	if resp_json['errcode'] == '0':
- 		print('create menu successfully')
- 	else:
- 		print('fail to create menu' , resp_json['errmsg'])
+	button_json='{"button":[{"type":"view","name":"给我点新鲜信息","url":"http://www.yangsh.info/weixin/news"}]}'
+	create_menu_url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='+access_token
+	resp = requests.post(create_menu_url,data=button_json)
+	resp_json = json.load(resp.text)
+	if resp_json['errcode'] == '0':
+		print('create menu successfully')
+	else:
+		print('fail to create menu' , resp_json['errmsg'])
 
 
 
 
 if __name__ == '__main__':
-    access_token = get_access_token()
-    create_menu(access_token)
-
-
+	access_token = get_access_token()
+	create_menu(access_token)
 	run(host='localhost',port=8080,debug=True)
 
 
