@@ -32,8 +32,8 @@ def get_access_token():
 			access_token = res_json['access_token']
 			access_token_expire_time = int(time.time()) + res_json['expires_in']
 		return access_token
-	except:
-		print('Error , fail to get access_token.')
+	except BaseException as e:
+		print('Error , fail to get access_token.' ,e )
 
 def create_menu(access_token):
 	button_json='{"button":[{"type":"view","name":"给我点新鲜信息","url":"http://www.yangsh.info/weixin/news"}]}'
