@@ -22,7 +22,7 @@ def hello():
 
 def get_access_token():
 	try : 
-		if access_token=='' || int(time.time()) > access_token_expire_time : 
+		if access_token=='' or int(time.time()) > access_token_expire_time : 
 			print('start to request access_token')
 			response = requests.get(access_token_url)
 			print('access_token response : ' , response)
