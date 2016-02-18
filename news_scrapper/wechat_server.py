@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 from bottle import route, request,response ,run
 import requests 
 import os
@@ -38,7 +39,7 @@ def get_access_token():
 		print('Error , fail to get access_token.' ,e )
 
 def create_menu(access_token):
-	button_json='{"button":[{"type":"view","name":"给我点新鲜信息","url":"http://www.yangsh.info/weixin/news"}]}'
+	button_json='{"button":[{"type":"view","name":"give me some news","url":"http://www.yangsh.info/weixin/news"}]}'
 	create_menu_url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='+access_token
 	resp = requests.post(create_menu_url,data=button_json,verify=False)
 	resp_json = json.loads(resp.text)
