@@ -2,9 +2,11 @@ from bottle import route, request,response ,run
 import requests 
 import os
 import json
+import time
 app_id = os.environ['WECHAT_APPID']
 app_secret=os.environ['WECHAT_APPSECRET']
 access_token_url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='+app_id+'&secret='+app_secret
+print(access_token_url)
 access_token = ''
 access_token_expire_time=0
 
