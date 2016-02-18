@@ -6,6 +6,6 @@ def hello():
 	print('signature : ' ,request.query.timestamp)
 	print('nonce :', request.query.nonce)
 	print('echostr' , request.query.echostr);
-	return "hello world"
+	return request.query.echostr
 
 run(host='localhost',port=8080,debug=True)
