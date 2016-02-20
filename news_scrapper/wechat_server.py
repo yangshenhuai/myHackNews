@@ -4,6 +4,8 @@ import requests
 import os
 import json
 import time
+from defusedxml import ElementTree as ET
+
 app_id = os.environ['WECHAT_APPID']
 app_secret=os.environ['WECHAT_APPSECRET']
 access_token_url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='+app_id+'&secret='+app_secret
@@ -25,10 +27,40 @@ def hello():
 
 @post('/weixin')
 def receive_msg():
-	print('forms : ' , request.forms)
-	content = request.forms.get('Content')
-	msg_type = request.forms.get('MsgType')
-	print('content :' , content , 'msg_type' , msg_type)
+	try:
+		req_data = request.body.read().decode(encoding='utf8')
+		msg_data = get_msg_data(req_data)
+		print('msg_data is ' ,msg_data)
+		return "success"
+
+	except:
+		return "success"
+
+def get_msg_data(request_data):
+	result={}
+	try:
+		root = ET.fromstring(req_data)
+		result['FromUserName'] = root.findall('FromUserName')[0].text
+		result['ToUserName'] = root.findall('ToUserName')[0].text
+		result['CreateTime'] = root.findall('CreateTime')[0].text
+		result['MsgType'] = root.findall('MsgType')[0].text
+		result['Content'] = root.findall('Content')[0].text
+		result['MsgId'] = root.findall('MsgId')[0].text
+		result['success'] = True
+		return result
+	except Exception as e:
+		print('fail to get msg :',str(e))
+		result['success'] = False
+		result['reason']='fail to process the wechat Msg,please check if this request comes from wechat'
+		return result
+
+
+
+
+
+
+
+
 
 
 def get_access_token():
