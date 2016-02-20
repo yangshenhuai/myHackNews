@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-from bottle import route, request,response ,run
+from bottle import route, request,response ,run,post,get
 import requests 
 import os
 import json
@@ -14,13 +14,21 @@ access_token_expire_time=0
 
 
 
-@route('/weixin')
+@get('/weixin')
 def hello():
 	print('signature : ' ,request.query.signature)
 	print('signature : ' ,request.query.timestamp)
 	print('nonce :', request.query.nonce)
 	print('echostr' , request.query.echostr);
 	return request.query.echostr
+
+
+@post('/weixin')
+def receive_msg():
+	print('forms : ' , request.forms)
+	content = request.forms.get('Content')
+	msg_type = request.forms.get('MsgType')
+	print('content :' , content , 'msg_type' , msg_type)
 
 
 def get_access_token():
@@ -52,8 +60,9 @@ def create_menu(access_token):
 
 
 if __name__ == '__main__':
-	access_token = get_access_token()
-	create_menu(access_token)
+	access_token = get_access_token
+	#since my accont is unauthorized accont , don't have permission to call this method
+	# create_menu(access_token)
 	run(host='localhost',port=8080,debug=True)
 
 
