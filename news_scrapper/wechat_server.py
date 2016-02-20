@@ -39,7 +39,7 @@ def receive_msg():
 def get_msg_data(request_data):
 	result={}
 	try:
-		root = ET.fromstring(req_data)
+		root = ET.fromstring(request_data)
 		result['FromUserName'] = root.findall('FromUserName')[0].text
 		result['ToUserName'] = root.findall('ToUserName')[0].text
 		result['CreateTime'] = root.findall('CreateTime')[0].text
