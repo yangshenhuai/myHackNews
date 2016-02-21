@@ -34,7 +34,7 @@ def receive_msg():
 	global all_command_str
 	response.headers['Content-Type'] = 'xml/application'
 	try:
-		# REMOTE_ADDR will return the proxy ip instead of real client ip 
+		# REMOTE_ADDR will return the proxy ip instead of real client ip ,remove it , since 
 		# if not verify_ip(request.environ['X-Forwarded-For']):
 		# 	return "Error! Are you sure you are wechat server?"
 		req_data = request.body.read().decode(encoding='utf8')
@@ -71,7 +71,7 @@ def generate_news_messsage(msg_data,news_list):
 
 	resp_text = '<xml></ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><<FromUserName><![CDATA['+ msg_data['ToUserName']\
 				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]></MsgType><Content><![CDATA['\
-				+'<ArticleCount>' + len(news_list) + '</ArticleCount></Articles>'
+				+'<ArticleCount>' + str(len(news_list)) + '</ArticleCount></Articles>'
 	
 	for news in news_list:
 		resp_text = resp_text +  '<item><Title><![CDATA[' + news.title + '</Title><Description><![CDATA[' + news.description + ']]></Description>'\
@@ -156,7 +156,7 @@ def get_wechat_ip(access_token):
 
 if __name__ == '__main__':
 	access_token = get_access_token()
-	get_wechat_ip(access_token)
+	# get_wechat_ip(access_token)
 	print('wechat server ip list ' , wechat_server_ip)
 	news_controller.schedule()
 	#since my accont is unauthorized accont , don't have permission to call this method
