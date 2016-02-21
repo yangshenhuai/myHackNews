@@ -33,7 +33,7 @@ def hello():
 def receive_msg():
 	global all_command_str
 	try:
-		if verify_ip(requests.environ.get('REMOTE_ADDR')):
+		if verify_ip(request.environ.get('REMOTE_ADDR')):
 			return "Error! Are you sure you are wechat server?"
 		req_data = request.body.read().decode(encoding='utf8')
 		msg_data = get_msg_data(req_data)
