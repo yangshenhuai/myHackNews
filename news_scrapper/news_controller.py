@@ -1,7 +1,6 @@
 import base_scaper
 from apscheduler.schedulers.background import BackgroundScheduler
 import time
-from datetime import datetime
 
 class news(object):
 	def __init__(self,title,description,picurl,url):
@@ -15,7 +14,7 @@ class news(object):
 
 
 def schedule():
-	scheduler = BackgroundScheduler()
+	scheduler = BackgroundScheduler(timezone='UTC')
 	scheduler.add_job(base_scaper.scape, 'interval', minutes=30)
 	scheduler.start()
 
