@@ -96,8 +96,6 @@ def get_msg_data(request_data):
 		result['MsgType'] = root.findall('MsgType')[0].text
 		result['Content'] = root.findall('Content')[0].text
 		result['MsgId'] = root.findall('MsgId')[0].text
-		if Content:
-			pass
 		result['success'] = True
 		return result
 	except Exception as e:
