@@ -67,15 +67,14 @@ def generate_news_messsage(msg_data,news_list):
 	if news_list is None or len(news_list) == 0 :
 		return generate_text_messages(msg_data,'Not have any news yet.');
 
-	resp_text = '<xml></ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><<FromUserName><![CDATA['+ msg_data['ToUserName']\
+	resp_text = '<xml><ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><FromUserName><![CDATA['+ msg_data['ToUserName']\
 				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]></MsgType>'\
-				+'<ArticleCount>' + str(len(news_list)) + '</ArticleCount></Articles>'
+				+'<ArticleCount>' + str(len(news_list)) + '</ArticleCount><Articles>'
 	
 	for news in news_list:
-		resp_text = resp_text +  '<item><Title><![CDATA[' + news.title + '</Title><Description><![CDATA[' + news.description + ']]></Description>'\
-					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>'
-	
-	resp_text+=resp_text+'</Articles></xml>'
+		resp_text = resp_text.append('<item><Title><![CDATA[' + news.title + '</Title><Description><![CDATA[' + news.description + ']]></Description>'\
+					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>')
+	resp_text=resp_text.append('</Articles></xml>')
 	print('return news msg',resp_text)
 	return resp_text
 
