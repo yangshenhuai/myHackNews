@@ -145,7 +145,8 @@ def get_wechat_ip(access_token):
 	print('the get_ip response : ' , resp.text);
 	resp_json = json.loads(resp.text)
 	if resp_json['ip_list'] is not None:
-		wechat_server_ip = resp_json['ip_list']
+		global wechat_server_ip = resp_json['ip_list']
+		print('wechat_server_ip is ',wechat_server_ip , 'and have ',len(wechat_server_ip),'servers')
 	else:
 		print('fail to get wechat server ip',resp_json)
 
