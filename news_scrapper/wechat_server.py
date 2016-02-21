@@ -56,9 +56,10 @@ def receive_msg():
 
 
 def generate_text_messages(msg_data,text):
-	text_msg = '<xml><ToUserName><![CDATA[' + msg_data['ToUserName'] + ']]></ToUserName><FromUserName><![CDATA[' + msg_data['FromUserName']\
+	text_msg = '<xml><ToUserName><![CDATA[' + msg_data['FromUserName'] + ']]></ToUserName><FromUserName><![CDATA[' + msg_data['ToUserName']\
 			+ ']]></FromUserName><CreateTime>' + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[text]]</MsgType><Content><![CDATA[' +\
 			text + ']]></Content></xml>'
+	print('return text_msg ',text_msg)
 	return text_msg
 
 
@@ -66,7 +67,7 @@ def generate_news_messsage(msg_data,news_list):
 	if news_list is None or len(news_list) == 0 :
 		return generate_text_messages(msg_data,'Not have any news yet.');
 
-	resp_text = '<xml></ToUserName><![CDATA[' + msg_data['ToUserName'] +']]></ToUserName><<FromUserName><![CDATA['+ msg_data['FromUserName']\
+	resp_text = '<xml></ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><<FromUserName><![CDATA['+ msg_data['ToUserName']\
 				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]</MsgType><Content><![CDATA['\
 				+'<ArticleCount>' + len(news_list) + '</ArticleCount></Articles>'
 	
@@ -75,6 +76,7 @@ def generate_news_messsage(msg_data,news_list):
 					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>'
 	
 	resp_text+=resp_text+'</Articles></xml>'
+	print('return news msg',resp_text)
 	return resp_text
 
 
