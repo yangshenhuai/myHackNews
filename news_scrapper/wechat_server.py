@@ -32,8 +32,9 @@ def hello():
 @post('/weixin')
 def receive_msg():
 	global all_command_str
+	response.headers['Content-Type'] = 'xml/application'
 	try:
-		if verify_ip(request.environ.get('REMOTE_ADDR')):
+		if verify_ip(request.META['HTTP_X_REAL_IP']):
 			return "Error! Are you sure you are wechat server?"
 		req_data = request.body.read().decode(encoding='utf8')
 		msg_data = get_msg_data(req_data)
@@ -57,7 +58,7 @@ def receive_msg():
 
 def generate_text_messages(msg_data,text):
 	text_msg = '<xml><ToUserName><![CDATA[' + msg_data['FromUserName'] + ']]></ToUserName><FromUserName><![CDATA[' + msg_data['ToUserName']\
-			+ ']]></FromUserName><CreateTime>' + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[text]]</MsgType><Content><![CDATA[' +\
+			+ ']]></FromUserName><CreateTime>' + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' +\
 			text + ']]></Content></xml>'
 	print('return text_msg ',text_msg)
 	return text_msg
@@ -68,7 +69,7 @@ def generate_news_messsage(msg_data,news_list):
 		return generate_text_messages(msg_data,'Not have any news yet.');
 
 	resp_text = '<xml></ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><<FromUserName><![CDATA['+ msg_data['ToUserName']\
-				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]</MsgType><Content><![CDATA['\
+				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]></MsgType><Content><![CDATA['\
 				+'<ArticleCount>' + len(news_list) + '</ArticleCount></Articles>'
 	
 	for news in news_list:
