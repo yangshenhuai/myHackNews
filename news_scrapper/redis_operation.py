@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*- 
 import redis
 import time
+import os
 
-r = redis.Redis(host='50.30.35.9',port=3464,db=0,password='')
+
+
+r = redis.Redis(host='50.30.35.9',port=3464,db=0,password=os.environ['REDIS_PWD'])
 
 result_table_name='result_table' 
 
