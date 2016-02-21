@@ -72,9 +72,9 @@ def generate_news_messsage(msg_data,news_list):
 				+'<ArticleCount>' + str(len(news_list)) + '</ArticleCount><Articles>'
 	
 	for news in news_list:
-		resp_text = resp_text.append('<item><Title><![CDATA[' + news.title + '</Title><Description><![CDATA[' + news.description + ']]></Description>'\
-					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>')
-	resp_text=resp_text.append('</Articles></xml>')
+		resp_text = resp_text + '<item><Title><![CDATA[' + news.title + '</Title><Description><![CDATA[' + news.description + ']]></Description>'\
+					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>' 
+	resp_text=resp_text + '</Articles></xml>'
 	print('return news msg',resp_text)
 	return resp_text
 
