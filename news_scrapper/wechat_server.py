@@ -37,7 +37,7 @@ def receive_msg():
 			return "Error! Are you sure you are wechat server?"
 		req_data = request.body.read().decode(encoding='utf8')
 		msg_data = get_msg_data(req_data)
-
+		print('msg_data',msg_data)
 		if msg_data['Content'] not in all_command_str:
 			resp_content = 'invalid command.valid usages:\n'
 			for command in all_command_str:
@@ -49,7 +49,8 @@ def receive_msg():
 
 		news_list = news_controller.get_news(msg_data['Content'])
 		return generate_news_messsage(msg_data,news_list)
-	except:
+	except Exception as e:
+		print('fail to process coming msg' , e );
 		return generate_text_messages(msg_data,'system busy,please try again.');
 
 
@@ -97,6 +98,7 @@ def get_msg_data(request_data):
 		result['Content'] = root.findall('Content')[0].text
 		result['MsgId'] = root.findall('MsgId')[0].text
 		result['success'] = True
+		print('result' , result)
 		return result
 	except Exception as e:
 		print('fail to get msg :',str(e))
