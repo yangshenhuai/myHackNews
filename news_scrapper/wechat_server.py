@@ -118,6 +118,7 @@ def get_access_token():
 			res_json = json.loads(response.text)
 			access_token = res_json['access_token']
 			access_token_expire_time = int(time.time()) + res_json['expires_in']
+		print('the access token is ' ,access_token)
 		return access_token
 	except BaseException as e:
 		print('Error , fail to get access_token.' ,e )
@@ -139,7 +140,9 @@ def get_wechat_ip(access_token):
 	if len(wechat_server_ip) != 0 :
 		return wechat_server_ip
 	get_ip_url='https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=' + access_token
+	print('get ip url is ' ,get_ip_url)
 	resp = requests.get(get_ip_url,verify=False)
+	print('the get_ip response : ' , resp.text);
 	resp_json = json.loads(resp.text)
 	if resp_json['ip_list'] is not None:
 		wechat_server_ip = resp_json['ip_list']
