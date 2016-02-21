@@ -152,7 +152,7 @@ def get_wechat_ip(access_token):
 
 if __name__ == '__main__':
 	access_token = get_access_token()
-	wechat_server_ip=get_wechat_ip(access_token)
+	get_wechat_ip(access_token)
 	print('wechat server ip list ' , wechat_server_ip)
 	news_controller.schedule()
 	#since my accont is unauthorized accont , don't have permission to call this method
