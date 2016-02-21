@@ -139,7 +139,7 @@ def get_wechat_ip(access_token):
 	if len(wechat_server_ip) != 0 :
 		return wechat_server_ip
 	get_ip_url='https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=' + access_token
-	resp = requests.get(create_menu_url,verify=False)
+	resp = requests.get(get_ip_url,verify=False)
 	resp_json = json.loads(resp.text)
 	if resp_json['ip_list'] is not None:
 		wechat_server_ip = resp_json['ip_list']
