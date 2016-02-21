@@ -34,7 +34,8 @@ def receive_msg():
 	global all_command_str
 	response.headers['Content-Type'] = 'xml/application'
 	try:
-		if verify_ip(request.META['HTTP_X_REAL_IP']):
+		# REMOTE_ADDR will return the proxy ip instead of real client ip 
+		if not verify_ip(request.environ['X-Forwarded-For']):
 			return "Error! Are you sure you are wechat server?"
 		req_data = request.body.read().decode(encoding='utf8')
 		msg_data = get_msg_data(req_data)
