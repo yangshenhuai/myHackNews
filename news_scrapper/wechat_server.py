@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-from bottle import route, request,response ,run,post,get
+from bottle import route, request,response ,run,post,get,template,static_file
 import requests 
 import os
 import json
@@ -17,7 +17,7 @@ print(access_token_url)
 access_token = ''
 access_token_expire_time=0
 wechat_server_ip=[]
-all_command_str={'tdy':'for todays news','yda':'for yesterdays news','new':'for latest news'}
+all_command_str={'news':'for tdy latest news'}
 
 
 @get('/weixin')
@@ -53,6 +53,9 @@ def receive_msg():
 		print('fail to process coming msg' , e );
 		return generate_text_messages(msg_data,'system busy,please try again.');
 
+@route('/gen_news/<filename>')
+def server_static(filename):
+	return static_file(filename, root='./gen_news')
 
 
 def generate_text_messages(msg_data,text):
@@ -64,20 +67,29 @@ def generate_text_messages(msg_data,text):
 
 
 def generate_news_messsage(msg_data,news_list):
-	if news_list is None or len(news_list) == 0 :
-		return generate_text_messages(msg_data,'Not have any news yet.');
+	
+	file_name = generate_html_files(news_list)
+	title = str(int(time.time()))
+	url = 'http://yangsh.info:8080/gen_news/' + file_name
+
 
 	resp_text = '<xml><ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><FromUserName><![CDATA['+ msg_data['ToUserName']\
 				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]></MsgType>'\
-				+'<ArticleCount>' + str(len(news_list)) + '</ArticleCount><Articles>'
-	
-	for news in news_list:
-		resp_text = resp_text + '<item><Title><![CDATA[' + news.title + ']]></Title><Description><![CDATA[' + news.description + ']]></Description>'\
-					+'<PicUrl><![CDATA[' + news.picurl + ']]></PicUrl><Url><![CDATA['  + news.url + ']]></Url></item>' 
+				+'<ArticleCount>1</ArticleCount><Articles>'
+	resp_text = resp_text + '<item><Title><![CDATA[' + title + ']]></Title><Description><![CDATA[' + title + ' \'s news ]]></Description>'\
+					+'<PicUrl><![CDATA[http://yangsh.info/media/images/hacker.jpg]]></PicUrl><Url><![CDATA['  + url + ']]></Url></item>' 
 	resp_text=resp_text + '</Articles></xml>'
 	print('return news msg',resp_text)
 	return resp_text
 
+def generate_html_files(news_list):
+	file_content = template('news',rows=news_list)
+	file_name = 'gen_news/' + str(int(time.time())) + ".html"
+	if not os.path.exists('gen_news'):
+		os.makedirs(directory)
+	with open(file_name, "w") as html_file:
+		print(file_name,file=html_file)
+	return file_name
 
 
 def verify_ip(ip):

@@ -2,6 +2,7 @@
 import redis
 import time
 import os
+import datetime
 
 
 
@@ -46,8 +47,20 @@ def save_result(results) :
 		print(add_list)
 		r.zadd(result_table_name,*add_list) 
 
+def get_tdy_news():
+	now = datetime.datetime.now()
+	now_epoch = now.strftime('%s') #epoch time of now
+	start_of_tdy = now.replace(hour=0,minute=0,second=0,microsecond=0)
+	start_of_tdy_epoch=start_of_tdy.strftime('%s') #epoch time of start of tdy
+	print('result_table_name : ' ,result_table_name,'start_of_tdy_epoch',start_of_tdy_epoch,'now_epoch',now_epoch)
+	result_list = r.zrangebyscore(result_table_name,start_of_tdy_epoch,now_epoch)
+	return [result.decode('utf8') for result in result_list ]
+
+
+
+
 def gen_key(title,results_map) :
 	return title + "@@" + results_map[title]
 
 if __name__ == "__main__":
-	print("results :",readConfigurations())
+	print("results :",get_tdy_news())
