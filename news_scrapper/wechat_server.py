@@ -71,7 +71,7 @@ def generate_news_messsage(msg_data,news_list):
 	
 	file_name = generate_html_files(news_list)
 	title = str(int(time.time()))
-	url = 'http://yangsh.info:8080/' + file_name
+	url = 'http://yangsh.info/weixin/' + file_name
 
 
 	resp_text = '<xml><ToUserName><![CDATA[' + msg_data['FromUserName'] +']]></ToUserName><FromUserName><![CDATA['+ msg_data['ToUserName']\
