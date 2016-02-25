@@ -53,8 +53,9 @@ def receive_msg():
 		print('fail to process coming msg' , e );
 		return generate_text_messages(msg_data,'system busy,please try again.');
 
-@route('/gen_news/<filename>')
+@route('/weixin/gen_news/<filename>')
 def server_static(filename):
+	print('the file is ',filename)
 	return static_file(filename, root='./gen_news')
 
 
