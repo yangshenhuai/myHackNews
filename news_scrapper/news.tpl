@@ -2,6 +2,6 @@
 <h3>The todays latest news are:</h3>
 <ul>
 %for row in rows:
-   <li><a href='{{ row.url }}'>{{ row.name }}</a></li>
+   <li><a href='{{ row.url }}'>{{ row.title }}</a></li>
 %end
 </ul>

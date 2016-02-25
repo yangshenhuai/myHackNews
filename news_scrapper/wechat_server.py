@@ -77,7 +77,7 @@ def generate_news_messsage(msg_data,news_list):
 				+']]></FromUserName><CreateTime>'  + str(int(time.time())) + '</CreateTime><MsgType><![CDATA[news]]></MsgType>'\
 				+'<ArticleCount>1</ArticleCount><Articles>'
 	resp_text = resp_text + '<item><Title><![CDATA[' + title + ']]></Title><Description><![CDATA[' + title + ' \'s news ]]></Description>'\
-					+'<PicUrl><![CDATA[http://yangsh.info/media/images/hacker.jpg]]></PicUrl><Url><![CDATA['  + url + ']]></Url></item>' 
+					+'<PicUrl><![CDATA[http://yangsh.info/media/images/hacker.jpg]]></PicUrl><Url><![CDATA['  + url + ']]></Url></item>'
 	resp_text=resp_text + '</Articles></xml>'
 	print('return news msg',resp_text)
 	return resp_text
