@@ -89,7 +89,7 @@ def generate_html_files(news_list):
 	if not os.path.exists('gen_news'):
 		os.makedirs(directory)
 	with open(file_name, "w") as html_file:
-		print(file_name,file=html_file)
+		print(file_content,file=html_file)
 	return file_name
 
 
